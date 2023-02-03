@@ -1,0 +1,36 @@
+#This yaml files contains all the necessary paths, variables for the plugins
+pathRelative:
+  output: ./output
+
+files:
+  name: geoResults
+
+geocodingFields : [ID, Straße, Hausnummer, Plz, Stadt, Land]
+landList : [Deutschland, Österreich, Schweiz]
+payloadDictKeysBatch : [id, street, housenumber, postal, city]
+payloadDictKeysSingle : [strasse, houseNr, plz, stadt, land]
+payloadDictKeysReverse: [lat, lon]
+licenseKeyLength : 36
+licenseKeyCharacterLength : 32
+licenseKeySpecialCharacterLength : 4
+minimumFieldCount : 2
+logTabIndex : 3
+nullStatus : 0
+statusCode : 4
+landIndex : 5
+factor : 100
+dataKeys : [id, street, housenumber, postal, city, country, district, lat, lon, precision, quality, Grid_ETRS89-LAEA-100m, pagsId, ags2, ags3, ags5, ags8, ags11, ags13, ags16, ags20, ags22, ags24, ags27, Quality Mean]
+dataKeysReverse : [id, street, housenumber, postal, city, country, district, score, lat, lon, precision, quality, Grid_ETRS89-LAEA-100m, pagsId, ags2, ags3, ags5, ags8, ags11, ags13, ags16, ags20, ags22, ags24, ags27, Quality Mean]
+street : [Straße, Strasse, Str., Str, Streets, Street, straße, strasse, str., str, streets, street]
+plz : [PLZ, Postleitzahl, plz, postleitzahl]
+city : [Stadt, City, Ort, stadt, city, ort]
+country : [Land, Country, land, country]
+countryPrefixes: [de, Deutschland, Germany, a, Österreich, Austria, Oesterreich, Schweiz, Switzerland, li, Liechtenstein]
+interval : 25
+qualityList : [20, 40, 60, 80, 0]
+qualityDict :
+  20 : D- niedrige Qualität (0% - 25%)
+  40 : C- mittlere Qualität (25% - 50%)
+  60 : B- hohe Qualität (50% - 75%)
+  80 : A- sehr hohe Qualität (75% - 100%)
+  0 : E- sehr niedrige Qualität (< 0%)

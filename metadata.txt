@@ -1,0 +1,47 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name= infas LT Geocoder
+qgisMinimumVersion=3.0
+description= Geocoding with infas LT Geocoder
+version=1.0
+author=infas LT GmbH
+email=Info@infas-LT.de
+
+about= The plugin for the infas LT Geocoder allows the validation of postal addresses in Germany, Austria and Switzerland as well as their enrichment with geographic coordinates and keys for a variety of territorial structures. All results can then be used directly in QGIS. In addition to the geocoding of individual addresses, the plugin also offers the processing of address lists. Therefore, the address components street, house number, postal code, city and country have to be entered in the corresponding input fields or the corresponding columns have to be selected. Free of charge, the plugin provides the center coordinate of the grid cell in which the searched address is located. The Inspire grid with a side length of 100 meters is used for this purpose. If a license key is registered, the geocoding provides the exact coordinate for the searched address. Additionally, the plugin then offers a reverse geocoding, which allows to identify the correct address to a single coordinate pair. In this case, latitude and longitude must be entered in geodecimal notation. To obtain a license key, please contact us at vertrieb@infas-LT.de.
+
+tracker=https://github.com/infas-LT/geocoder-qgis/issues
+repository=https://github.com/infas-LT/geocoder-qgis
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=no
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags= infas-lt, geocoder, geocodierung, geokoder, geokodierung
+
+homepage=https://github.com/infas-LT/infas_lt_geocoder
+category=Plugins
+icon=icon.png
+# experimental flag
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+Category of the plugin: Raster, Vector, Database or Web
+# category=
+
+# If the plugin can run on QGIS Server.
+server=False
+

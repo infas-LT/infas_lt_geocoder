@@ -1,0 +1,61 @@
+# Diese Pipeline packt gewisse Teile des Repos in ein Zip-Archiv.
+# Dieses kann im QGis über die Option Erweiterungen-> Erweiterungen verwalten und installieren ->
+# Aus Zip installieren die Geocoder-Erweiterung installieren.
+
+trigger:
+- main
+
+variables:
+  project_root_dir: 'infas_lt_geocoder'
+  zip_file_name: 'infas-lt-geocoder-qgis-plugin-VerMajMin.$(Build.BuildId).zip'
+
+pool:
+  name: default
+  
+steps:
+- task: PowerShell@2
+  displayName: 'Version der Erweiterung ermitteln, Archivnamen anpassen'
+  inputs:
+    targetType: 'inline'
+    script: |
+      # https://techtalk.gfi.com/windows-powershell-extracting-strings-using-regular-expressions/
+      $input_path = "$(Build.Repository.LocalPath)/metadata.txt"
+      $regex = "\bversion=[0-9]+.[0-9]+\b"
+      $ps_plugin_version = select-string -Path $input_path -Pattern $regex -AllMatches | % { $_.Matches } | % { $_.Value }
+      $ps_plugin_version = $ps_plugin_version.Replace("version=","")
+      Write-Host Version der QGis-Erweiterung: $ps_plugin_version
+      Write-Host "##vso[task.setvariable variable=plugin_version;]$ps_plugin_version"
+      $ps_zip_name = "$(zip_file_name)"      
+      $ps_zip_name = $ps_zip_name.Replace("VerMajMin",$ps_plugin_version)
+      Write-Host Zip-Archiv-Name: $ps_zip_name
+      Write-Host "##vso[task.setvariable variable=zip_file_name;]$ps_zip_name"
+
+- task: CopyFiles@2
+  displayName: 'Zusammenstellung der Dateien für die Auslieferung'
+  inputs:
+    SourceFolder: '$(Build.Repository.LocalPath)'
+    Contents: |
+      config/**
+      geocoder/**
+      help/**
+      output/**
+      scripts/**
+      user_interface/**
+      i18n/**
+      *.*
+    TargetFolder: '$(Build.BinariesDirectory)/$(project_root_dir)'
+    CleanTargetFolder: true
+- task: ArchiveFiles@2
+  displayName: 'Erstellung des Zip-Installationspakets'
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)/$(project_root_dir)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(zip_file_name)'
+    replaceExistingArchive: true
+- task: CopyFiles@2
+  displayName: 'Kopieren nach $(zip_target_folder)'
+  inputs:
+    SourceFolder: '$(Build.ArtifactStagingDirectory)'
+    Contents: '$(zip_file_name)'
+    TargetFolder: '$(zip_target_folder)'
